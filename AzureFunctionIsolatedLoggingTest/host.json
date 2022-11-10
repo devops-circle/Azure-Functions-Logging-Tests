@@ -1,12 +1,12 @@
 {
   "version": "2.0",
-  "logging": {
+  "logging": { //https://learn.microsoft.com/en-us/azure/azure-functions/functions-host-json#logging
     "fileLoggingMode": "always",
-    "logLevel": {
-      "default": "Information",
+    "logLevel": { //https://learn.microsoft.com/en-us/azure/azure-functions/configure-monitoring?tabs=v2#configure-log-levels
+      "default": "Warning",
       "Host.Results": "Error",
-      "Function": "Error",
-      "Host.Aggregator": "Trace"
+      "Function": "Debug", // Because of this setting, Debug messages and higher are logged from the Function
+      "Host.Aggregator": "Warning"
     },
     "applicationInsights": {
       "samplingSettings": {
