@@ -1,11 +1,19 @@
 {
-    "version": "2.0",
-    "logging": {
-        "applicationInsights": {
-            "samplingSettings": {
-                "isEnabled": true,
-                "excludedTypes": "Request"
-            }
-        }
+  "version": "2.0",
+  "logging": {
+    "fileLoggingMode": "always",
+    "logLevel": { //https://learn.microsoft.com/en-us/azure/azure-functions/configure-monitoring?tabs=v2#configure-log-levels
+      "default": "Warning", // See best practices for a lot of log: https://learn.microsoft.com/en-us/azure/azure-functions/configure-monitoring?tabs=v2#solutions-with-high-volume-of-telemetry
+      //"Host.Results": "Error",
+      "Function.Function1": "Information", // Info is the default.
+      "Function.Function1.User": "Warning" // User logs only for wanrning and above. Lower than information still not working :-(
+      //"Host.Aggregator": "Debug"
+    },
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": true,
+        "excludedTypes": "Request"
+      }
     }
+  }
 }
