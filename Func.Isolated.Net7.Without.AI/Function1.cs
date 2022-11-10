@@ -17,13 +17,15 @@ namespace Func.Isolated.Net7.Without.AI
         [Function("Function1")]
         public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
         {
+            DateTime date = DateTime.UtcNow;
+
             _logger.LogInformation("Some logging tests right now:");
-            _logger.LogTrace("Trace");
-            _logger.LogDebug("Debug");
-            _logger.LogInformation("Information");
-            _logger.LogWarning("Warning");
-            _logger.LogError("Error");
-            _logger.LogCritical("Critical");
+            _logger.LogTrace("Trace " + date.ToLongTimeString());
+            _logger.LogDebug("Debug " + date.ToLongTimeString());
+            _logger.LogInformation("Information " + date.ToLongTimeString());
+            _logger.LogWarning("Warning " + date.ToLongTimeString());
+            _logger.LogError("Error " + date.ToLongTimeString());
+            _logger.LogCritical("Critical " + date.ToLongTimeString());
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
