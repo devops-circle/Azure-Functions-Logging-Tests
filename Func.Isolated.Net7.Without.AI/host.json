@@ -4,7 +4,7 @@
     "fileLoggingMode": "always",
     "logLevel": { //https://learn.microsoft.com/en-us/azure/azure-functions/configure-monitoring?tabs=v2#configure-log-levels
       "default": "Warning", // See best practices for a lot of log: https://learn.microsoft.com/en-us/azure/azure-functions/configure-monitoring?tabs=v2#solutions-with-high-volume-of-telemetry
-      //"Host.Results": "Error",
+      "Host.Results": "Information", // Set this to information (default) otherwise you will lose Performance, Failures, and so on. //https://learn.microsoft.com/en-us/azure/azure-functions/configure-monitoring?tabs=v2#solutions-with-high-volume-of-telemetry
       "Function.Function1": "Information", // Info is the default.
       "Function.Function1.User": "Warning", // User logs only for wanrning and above. Lower than information still not working :-(
       "Host.Aggregator": "Information" // Set this to information (default) otherwise you will lose metrics. //https://learn.microsoft.com/en-us/azure/azure-functions/configure-monitoring?tabs=v2#solutions-with-high-volume-of-telemetry
