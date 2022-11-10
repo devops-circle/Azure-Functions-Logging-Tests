@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Func.Isolated.Net7.With.AI": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7283",
+      "launchBrowser": false
+    }
+  }
+}
