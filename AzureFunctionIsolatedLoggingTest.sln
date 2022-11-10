@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctionIsolatedLoggin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctionIsolatedLoggingWithAITest", "AzureFunctionIsolatedLoggingWithAITest\AzureFunctionIsolatedLoggingWithAITest.csproj", "{CAB2C0E9-6A37-4D20-826D-E90324B1F921}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Func.Isolated.Net7.Without.AI", "Func.Isolated.Net7.Without.AI\Func.Isolated.Net7.Without.AI.csproj", "{ACC9EF85-6184-448F-B3D4-234CBC3A051B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CAB2C0E9-6A37-4D20-826D-E90324B1F921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAB2C0E9-6A37-4D20-826D-E90324B1F921}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAB2C0E9-6A37-4D20-826D-E90324B1F921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC9EF85-6184-448F-B3D4-234CBC3A051B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC9EF85-6184-448F-B3D4-234CBC3A051B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC9EF85-6184-448F-B3D4-234CBC3A051B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC9EF85-6184-448F-B3D4-234CBC3A051B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
