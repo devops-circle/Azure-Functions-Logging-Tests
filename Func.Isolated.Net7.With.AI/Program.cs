@@ -3,6 +3,7 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Func.Isolated.Net7.With.AI;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults(builder =>
@@ -13,7 +14,7 @@ var host = new HostBuilder()
             .AddApplicationInsights()
             .AddApplicationInsightsLogger();        
     })
-    .ConfigureServices(serviceProvider =>
+    .ConfigureServices((ctx, serviceProvider) =>
     {
         // You will need extra configuration because above will only log per default Warning (default AI configuration) and above because of following line:
         // https://github.com/microsoft/ApplicationInsights-dotnet/blob/main/NETCORE/src/Shared/Extensions/ApplicationInsightsExtensions.cs#L427
@@ -30,6 +31,10 @@ var host = new HostBuilder()
                 options.Rules.Remove(toRemove);
             }
         });
+
+
+        // Setup DI
+        serviceProvider.AddTransient<IUserDataService, UserDataService>();
     })
     .ConfigureAppConfiguration((hostContext, config) =>
     {
