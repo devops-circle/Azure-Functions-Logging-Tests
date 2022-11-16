@@ -20,12 +20,12 @@ namespace Func.Isolated.Net7.With.AI
             DateTime date = DateTime.UtcNow;
 
             _logger.LogInformation("Some logging tests right now:");
-            _logger.LogTrace("Trace " + date.ToLongTimeString());
-            _logger.LogDebug("Debug " + date.ToLongTimeString());
-            _logger.LogInformation("Information " + date.ToLongTimeString());
-            _logger.LogWarning("Warning " + date.ToLongTimeString());
-            _logger.LogError("Error " + date.ToLongTimeString());
-            _logger.LogCritical("Critical " + date.ToLongTimeString());
+            _logger.LogTrace("Custom message as Trace " + date.ToLongTimeString());
+            _logger.LogDebug("Custom message as Debug " + date.ToLongTimeString());
+            _logger.LogInformation("Custom message as Information " + date.ToLongTimeString());
+            _logger.LogWarning("Custom message as Warning " + date.ToLongTimeString());
+            _logger.LogError("Custom message as Error " + date.ToLongTimeString());
+            _logger.LogCritical("Custom message as Critical " + date.ToLongTimeString());
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
