@@ -1,11 +1,15 @@
 {
-    "version": "2.0",
-    "logging": {
-        "applicationInsights": {
-            "samplingSettings": {
-                "isEnabled": true,
-                "excludedTypes": "Request"
-            }
-        }
+  "version": "2.0",
+  "logging": {
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": true,
+        "excludedTypes": "Request"
+      }
+    },
+    "logLevel": {
+      "Func.InProcess.Net6.With.AI.MyFunctions": "Debug",
+      "Func.InProcess.Net6.With.AI.MyUserFunctions": "Information"
     }
+  }
 }
