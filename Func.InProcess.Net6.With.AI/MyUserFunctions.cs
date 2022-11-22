@@ -10,12 +10,12 @@ namespace Func.InProcess.Net6.With.AI
 {
     public class MyUserFunctions
     {
-        private readonly ILogger<MyFunctions> _logger;
+        private readonly ILogger<MyUserFunctions> _logger;
         private readonly IUserDataService _userDataService;
 
         // Make sure the ILogger<T> is opt-in:
         // https://learn.microsoft.com/en-us/azure/azure-functions/functions-dotnet-dependency-injection#iloggert-and-iloggerfactory
-        public MyUserFunctions(ILogger<MyFunctions> logger, IUserDataService userDataService)
+        public MyUserFunctions(ILogger<MyUserFunctions> logger, IUserDataService userDataService)
         {
             _logger = logger;
             _userDataService = userDataService;
