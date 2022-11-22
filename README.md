@@ -1,3 +1,5 @@
-# Azure Function Isolated Logging Test
+# Azure Functions Logging Tests
 
-An Azure Function Isolated sample application for getting logging working with and without Application Insights.
+Sample applications to get Azure Functions working with Application Insights for the following configuration:
+- .NET 6 In Process
+- .NET 7 Isolated
