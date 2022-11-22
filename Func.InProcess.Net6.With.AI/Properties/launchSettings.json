@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Func.InProcess.Net6.With.AI": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7116",
+      "launchBrowser": false
+    }
+  }
+}
