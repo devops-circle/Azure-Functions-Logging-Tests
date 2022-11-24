@@ -3,6 +3,7 @@
   "logging": {
     "logLevel": {
       "default": "Warning",
+      "Func.InProcess.Net6.With.AI.MyDurableFunctions": "Information",
       "Func.InProcess.Net6.With.AI.UserDataService": "Trace",
       "Func.InProcess.Net6.With.AI.MyUserFunctions": "Debug"
     },
