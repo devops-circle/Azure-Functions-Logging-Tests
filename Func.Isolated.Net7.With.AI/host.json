@@ -6,6 +6,16 @@
                 "isEnabled": true,
                 "excludedTypes": "Request"
             }
+        },
+        "logLevel": {
+          "Microsoft": "Warning",
+          "Azure.Core": "Error",
+          "Host.Results": "Information",
+          "Host.Executor": "Warning",
+          "Host.General": "Warning",
+          "Host.Controllers.Admin": "Warning",
+          "Host.Aggregator": "Information",
+          "default": "Information"
         }
     }
 }
