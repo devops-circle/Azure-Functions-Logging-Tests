@@ -10,7 +10,11 @@
         "logLevel": {
           "Microsoft": "Warning",
           "Azure.Core": "Error",
-          "Host": "Warning",
+          "Host.Results": "Information",
+          "Host.Executor": "Warning",
+          "Host.General": "Warning",
+          "Host.Controllers.Admin": "Warning",
+          "Host.Aggregator": "Information",
           "default": "Information"
         }
     }
