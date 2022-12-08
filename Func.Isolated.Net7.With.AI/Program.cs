@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Func.Isolated.Net7.With.AI;
+using Microsoft.Extensions.Logging.Console;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults(builder =>
@@ -57,6 +58,13 @@ var host = new HostBuilder()
     {
         // Make sure the configuration of the appsettings.json file is picked up.
         logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+
+        logging.AddSimpleConsole(o =>
+        {
+            o.ColorBehavior = LoggerColorBehavior.Enabled;
+            o.SingleLine = true;
+            o.IncludeScopes = true;
+        });
     })
     .Build();
 
