@@ -6,16 +6,17 @@ using Microsoft.Extensions.Logging;
 using Func.Isolated.Net7.With.AI;
 
 var host = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults(builder =>
-    {
-        // Is added by package "Microsoft.Azure.Functions.Worker.ApplicationInsights".
-        // Documented here because it is still preview: https://github.com/Azure/azure-functions-dotnet-worker/pull/944#issue-1282987627
-        builder
-            .AddApplicationInsights()
-            .AddApplicationInsightsLogger();        
-    })
+    .ConfigureFunctionsWorkerDefaults()
     .ConfigureServices((ctx, serviceProvider) =>
     {
+        // Add ApplicationInsights services for non-HTTP applications.
+        // See https://learn.microsoft.com/en-us/azure/azure-monitor/app/worker-service
+        serviceProvider.AddApplicationInsightsTelemetryWorkerService();
+
+        // Add function app specific ApplicationInsights services.
+        // See https://learn.microsoft.com/en-us/azure/azure-functions/dotnet-isolated-process-guide#application-insights
+        serviceProvider.ConfigureFunctionsApplicationInsights();
+
         // You will need extra configuration because above will only log per default Warning (default AI configuration) and above because of following line:
         // https://github.com/microsoft/ApplicationInsights-dotnet/blob/main/NETCORE/src/Shared/Extensions/ApplicationInsightsExtensions.cs#L427
         // This is documented here:
