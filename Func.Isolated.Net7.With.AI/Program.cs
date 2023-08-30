@@ -9,9 +9,10 @@ var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
     .ConfigureServices((ctx, serviceProvider) =>
     {
-        // Add ApplicationInsights services for non-HTTP applications.
-        // See https://learn.microsoft.com/en-us/azure/azure-monitor/app/worker-service
-        serviceProvider.AddApplicationInsightsTelemetryWorkerService();
+		// Add ApplicationInsights services for non-HTTP applications.
+		// See https://learn.microsoft.com/en-us/azure/azure-monitor/app/worker-service and
+		// See https://learn.microsoft.com/en-us/azure/azure-functions/dotnet-isolated-process-guide#application-insights
+		serviceProvider.AddApplicationInsightsTelemetryWorkerService();
 
         // Add function app specific ApplicationInsights services.
         // See https://learn.microsoft.com/en-us/azure/azure-functions/dotnet-isolated-process-guide#application-insights
