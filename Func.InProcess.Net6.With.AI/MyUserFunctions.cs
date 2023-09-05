@@ -23,7 +23,7 @@ namespace Func.InProcess.Net6.With.AI
 
         [FunctionName(nameof(GetUsers))]
         public async Task<IActionResult> GetUsers(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req)
         {
             DateTime date = DateTime.UtcNow;
 

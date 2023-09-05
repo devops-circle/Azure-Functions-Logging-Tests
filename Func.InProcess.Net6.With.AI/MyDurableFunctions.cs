@@ -46,7 +46,7 @@ namespace Func.InProcess.Net6.With.AI
 
         [FunctionName(nameof(Orchestrator1HttpTriggerGet))]
         public async Task<HttpResponseMessage> Orchestrator1HttpTriggerGet(
-            [HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestMessage req,
             [DurableClient] IDurableClient starter)
         {
             // Function input comes from the request content.
@@ -60,7 +60,7 @@ namespace Func.InProcess.Net6.With.AI
 
         [FunctionName(nameof(Orchestrator1HttpTriggerPost))]
         public async Task<HttpResponseMessage> Orchestrator1HttpTriggerPost(
-            [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage req,
             [DurableClient] IDurableClient starter)
         {
             // Function input comes from the request content.
