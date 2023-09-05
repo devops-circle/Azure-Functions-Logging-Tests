@@ -6,6 +6,26 @@ using Microsoft.Extensions.Logging;
 using Func.Isolated.Net7.With.AI;
 
 var host = new HostBuilder()
+    .ConfigureAppConfiguration((hostContext, config) =>
+    {
+        // Add appsettings.json configuration so we can set logging in configuration.
+        // Add in example a file called appsettings.json to the root and set the properties to:
+        // Build Action: Content
+        // Copy to Output Directory: Copy if newer
+        //
+        // Content:
+        // {
+        //   "Logging": {
+        //     "LogLevel": {
+        //       "Default": "Error" // Change this to ie Trace for more logging
+        //     }
+        //   }
+        // }
+        //
+        // NOTE: It's important to add json config sources before the call to ConfigureFunctionsWorkerDefaults as this
+        // adds environment variables into configuration enabling overrides by azure configuration settings.
+        config.AddJsonFile("appsettings.json", optional: true);
+    })
     .ConfigureFunctionsWorkerDefaults()
     .ConfigureServices((ctx, serviceProvider) =>
     {
@@ -37,23 +57,6 @@ var host = new HostBuilder()
 
         // Setup DI
         serviceProvider.AddTransient<IUserDataService, UserDataService>();
-    })
-    .ConfigureAppConfiguration((hostContext, config) =>
-    {
-        // Add appsettings.json configuration so we can set logging in configuration.
-        // Add in example a file called appsettings.json to the root and set the properties to:
-        // Build Action: Content
-        // Copy to Output Directory: Copy if newer
-        //
-        // Content:
-        // {
-        //   "Logging": {
-        //     "LogLevel": {
-        //       "Default": "Error" // Change this to ie Trace for more logging
-        //     }
-        //   }
-        // }
-        config.AddJsonFile("appsettings.json", optional: true);
     })
     .ConfigureLogging((hostingContext, logging) =>
     {
