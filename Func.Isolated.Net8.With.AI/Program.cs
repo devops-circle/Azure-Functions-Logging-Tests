@@ -1,5 +1,6 @@
 using Func.Isolated.Net8.With.AI;
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -44,6 +45,33 @@ var host = new HostBuilder()
                 options.Rules.Remove(defaultRule);
             }
         });
+
+        // Disable IHttpClientFactory Informational logs. Source: https://learn.microsoft.com/en-us/azure/azure-functions/dotnet-isolated-process-guide?tabs=hostbuilder%2Cwindows#logging
+        // Note -- you can also remove the handler that does the logging: https://github.com/aspnet/HttpClientFactory/issues/196#issuecomment-432755765 
+        logging.AddFilter("System.Net.Http.HttpClient", LogLevel.Warning);
+    })
+    .ConfigureAppConfiguration((hostContext, config) =>
+    {
+        config.AddJsonFile("host.json", optional: true);
+
+        // Add appsettings.json configuration so we can set logging in configuration.
+        // Add in example a file called appsettings.json to the root and set the properties to:
+        // Build Action: Content
+        // Copy to Output Directory: Copy if newer
+        //
+        // Content:
+        // {
+        //    "Key1": "Value A",
+        //    "KeysNested": {
+        //        "Key2": "Value B",
+        //        "Key3": "Value C"
+        //    }
+        //}
+        config.AddJsonFile("appsettings.json", optional: true);
+    })
+    .ConfigureLogging((hostingContext, logging) =>
+    {
+        logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
     })
     .Build();
 
