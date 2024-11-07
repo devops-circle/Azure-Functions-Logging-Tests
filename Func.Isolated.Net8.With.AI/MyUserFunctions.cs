@@ -1,23 +1,23 @@
-using System.Net;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Func.Isolated.Net8.With.AI
 {
     public class MyUserFunctions
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<MyFunctions> _logger;
         private readonly IUserDataService _userDataService;
 
-        public MyUserFunctions(ILoggerFactory loggerFactory, IUserDataService userDataService)
+        public MyUserFunctions(ILogger<MyFunctions> logger, IUserDataService userDataService)
         {
-            _logger = loggerFactory.CreateLogger<MyUserFunctions>();
-            _userDataService = userDataService ?? throw new ArgumentNullException(nameof(userDataService));
+            _logger = logger;
+            _userDataService = userDataService;
         }
 
         [Function(nameof(GetUsers))]
-        public async Task<HttpResponseData> GetUsers([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
+        public async Task<IActionResult> GetUsers([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
         {
             DateTime date = DateTime.UtcNow;
 
@@ -29,15 +29,10 @@ namespace Func.Isolated.Net8.With.AI
             _logger.LogError("Custom message as Error " + date.ToLongTimeString());
             _logger.LogCritical("Custom message as Critical " + date.ToLongTimeString());
 
-            var response = req.CreateResponse(HttpStatusCode.OK);
-
             var users = await _userDataService.GetUsersAsync();
             _logger.LogDebug("Number of users: " + users.Count);
 
-            // Set again statuscode because of issue: https://github.com/Azure/azure-functions-dotnet-worker/issues/776#issuecomment-1015633552
-            await response.WriteAsJsonAsync(users, response.StatusCode);
-
-            return response;
+            return new OkObjectResult($"Welcome to Azure Functions with the name: {nameof(GetUsers)}!");
         }
     }
 }
