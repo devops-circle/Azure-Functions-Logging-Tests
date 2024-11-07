@@ -30,6 +30,12 @@ public class UserDataService : IUserDataService
 
         _logger.LogTrace("GetUsersAsync finished at: " + DateTime.Now.ToLongTimeString());
 
+        _logger.LogDebug("GetUsersAsync Debug");
+        _logger.LogInformation("GetUsersAsync Information");
+        _logger.LogWarning("GetUsersAsync Warning");
+        _logger.LogError("GetUsersAsync Error");
+        _logger.LogCritical("GetUsersAsync Critical");
+
         return Task.FromResult(users);
     }
 }

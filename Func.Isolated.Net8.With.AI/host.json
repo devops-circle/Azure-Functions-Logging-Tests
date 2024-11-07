@@ -1,6 +1,15 @@
 {
     "version": "2.0",
     "logging": {
+        "logLevel": {
+            "Host.Aggregator": "Trace",
+            "Host.Results": "Information",
+            "Function": "Information",
+            "Function.Function1.User": "Warning",
+            "Function.Function2.User": "Error",
+            "Function.GetUsers": "Information",
+            "Function.GetUsers.User": "Information"
+        },
         "applicationInsights": {
             "samplingSettings": {
                 "isEnabled": true,
