@@ -33,4 +33,5 @@
   <ItemGroup>
     <Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
   </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties properties_4servicedependencies_4funcisolatednet7withai20221115175046_x0020_-_x0020_zip_x0020_deploy_4appinsights1_1arm_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>
