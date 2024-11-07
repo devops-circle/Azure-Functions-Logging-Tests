@@ -1,21 +1,21 @@
-using System.Net;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Func.Isolated.Net8.With.AI
 {
     public class MyOtherFunctions
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<MyOtherFunctions> _logger;
 
-        public MyOtherFunctions(ILoggerFactory loggerFactory)
+        public MyOtherFunctions(ILogger<MyOtherFunctions> logger)
         {
-            _logger = loggerFactory.CreateLogger<MyOtherFunctions>();
+            _logger = logger;
         }
 
         [Function(nameof(Function3))]
-        public HttpResponseData Function3([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
+        public IActionResult Function3([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
         {
             DateTime date = DateTime.UtcNow;
 
@@ -27,16 +27,11 @@ namespace Func.Isolated.Net8.With.AI
             _logger.LogError("Custom message as Error " + date.ToLongTimeString());
             _logger.LogCritical("Custom message as Critical " + date.ToLongTimeString());
 
-            var response = req.CreateResponse(HttpStatusCode.OK);
-            response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
-
-            response.WriteString("Welcome to Azure Functions!");
-
-            return response;
+            return new OkObjectResult($"Welcome to Azure Functions with the name: {nameof(Function3)}!");
         }
 
         [Function(nameof(Function4))]
-        public HttpResponseData Function4([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
+        public IActionResult Function4([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
         {
             DateTime date = DateTime.UtcNow;
 
@@ -48,12 +43,7 @@ namespace Func.Isolated.Net8.With.AI
             _logger.LogError("Custom message as Error " + date.ToLongTimeString());
             _logger.LogCritical("Custom message as Critical " + date.ToLongTimeString());
 
-            var response = req.CreateResponse(HttpStatusCode.OK);
-            response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
-
-            response.WriteString("Welcome to Azure Functions!");
-
-            return response;
+            return new OkObjectResult($"Welcome to Azure Functions with the name: {nameof(Function4)}!");
         }
     }
 }
