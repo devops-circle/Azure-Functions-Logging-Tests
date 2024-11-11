@@ -66,16 +66,14 @@ var host = new HostBuilder()
         //    }
         //}
 
-        // This sample project is hosted on Linux-x64. The file appsettings.json is not loaded without this hack on Linux.
-        // See: https://stackoverflow.com/a/78144415/801005
-        if (hostContext.HostingEnvironment.IsDevelopment() == false)
-            config.SetBasePath("/home/site/wwwroot");
+        // When this sample project is hosted on Linux-x64. The file appsettings.json is not loaded without this hack on Linux.
+        // This hack only works on Linux. For dedicated app service plan and consumption plan. See: https://stackoverflow.com/a/79178062/801005
+        //if (hostContext.HostingEnvironment.IsDevelopment() == false)
+        //    config.SetBasePath("/home/site/wwwroot");
 
         // Add configuration from appsettings.json and appsettings.{Environment}.json
         config
-            //.SetBasePath(Directory.GetCurrentDirectory()) // This didn't work for me on Linux...
-            // Strange because it is confirmed twice. See https://stackoverflow.com/a/78268476/801005 and https://stackoverflow.com/a/79027176/801005
-
+            .SetBasePath(Directory.GetCurrentDirectory()) // Remove this line when running on Linux consumption plan. See above and https://stackoverflow.com/a/79178062/801005
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables()
@@ -83,11 +81,17 @@ var host = new HostBuilder()
 
         // Add local.settings.json and user secrets in development environment
         if (hostContext.HostingEnvironment.IsDevelopment())
-    {
+        {
             config.AddJsonFile("local.settings.json");
             config.AddUserSecrets<Program>(true);
         }
+
+        //config.AddJsonFile("host.json", optional: true);
     })
+    //.ConfigureLogging((hostingContext, logging) =>
+    //{
+    //    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+    //})
     .Build();
 
 host.Run();
