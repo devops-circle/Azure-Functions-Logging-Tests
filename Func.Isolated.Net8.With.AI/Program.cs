@@ -52,9 +52,7 @@ var host = new HostBuilder()
     })
     .ConfigureAppConfiguration((hostContext, config) =>
     {
-        config.AddJsonFile("host.json", optional: true);
-
-        // Add appsettings.json configuration so we can set logging in configuration.
+        // Add appsettings.json and appsettings.{environment}.json configuration so we can set configuration in source control and add configuration per environment.
         // Add in example a file called appsettings.json to the root and set the properties to:
         // Build Action: Content
         // Copy to Output Directory: Copy if newer
@@ -67,11 +65,28 @@ var host = new HostBuilder()
         //        "Key3": "Value C"
         //    }
         //}
-        config.AddJsonFile("appsettings.json", optional: true);
-    })
-    .ConfigureLogging((hostingContext, logging) =>
+
+        // This sample project is hosted on Linux-x64. The file appsettings.json is not loaded without this hack on Linux.
+        // See: https://stackoverflow.com/a/78144415/801005
+        if (hostContext.HostingEnvironment.IsDevelopment() == false)
+            config.SetBasePath("/home/site/wwwroot");
+
+        // Add configuration from appsettings.json and appsettings.{Environment}.json
+        config
+            //.SetBasePath(Directory.GetCurrentDirectory()) // This didn't work for me on Linux...
+            // Strange because it is confirmed twice. See https://stackoverflow.com/a/78268476/801005 and https://stackoverflow.com/a/79027176/801005
+
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables()
+            .Build();
+
+        // Add local.settings.json and user secrets in development environment
+        if (hostContext.HostingEnvironment.IsDevelopment())
     {
-        logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+            config.AddJsonFile("local.settings.json");
+            config.AddUserSecrets<Program>(true);
+        }
     })
     .Build();
 
