@@ -10,11 +10,15 @@ namespace Func.Isolated.Net8.With.AI
     {
         private readonly ILogger<MySettingsFunctions> _logger;
         private readonly IConfiguration _configuration;
+        private IConfigurationRoot _configRoot;
 
         public MySettingsFunctions(ILogger<MySettingsFunctions> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
+
+            // Source: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-8.0#application-configuration-providers
+            _configRoot = (IConfigurationRoot)configuration;
         }
 
         [Function(nameof(GetSettings))]
@@ -23,8 +27,19 @@ namespace Func.Isolated.Net8.With.AI
             DateTime date = DateTime.UtcNow;
 
             _logger.LogInformation("Some logging tests right now:");
+
+            // Log setting providers
+            string allProviders = "Configuration providers: \n";
+            foreach (var provider in _configRoot.Providers.ToList())
+            {
+                allProviders += provider.ToString() + "\n";
+            }
+            _logger.LogInformation(allProviders);
+
+            _logger.LogInformation("Configuration keys and values:");
             _logger.LogInformation("logging.logLevel.Function: " + _configuration["logging.logLevel.Function"]);
             _logger.LogInformation("Key1: " + _configuration["Key1"]);
+            _logger.LogInformation("Key1 with GetValue method: " + _configuration.GetValue<string>("Key1"));
             _logger.LogInformation("KeysNested:Key2: " + _configuration["KeysNested:Key2"]);
             _logger.LogInformation("KeysNested:Key3: " + _configuration["KeysNested:Key3"]);
 
